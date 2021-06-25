@@ -13,6 +13,8 @@ git clone https://github.com/sy1ntexx/rusty-dll
 
 ***Don't forget to rename package to your project name in*** `Cargo.toml`
 
+`build/` folder contains batch scripts to quickly build your packet for `x64` or `x86` architecture.
+
 # Usage
 Write the code you want in `main_thread` function!
 ```rs
