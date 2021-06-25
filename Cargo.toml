@@ -21,7 +21,9 @@ default = [
     "winapi/tlhelp32",
     "winapi/psapi",
     "winapi/wincon",
-    "winapi/libloaderapi"
+    "winapi/libloaderapi",
+    "winapi/impl-debug",
+    "winapi/impl-default"
 ]
 
 [dependencies]
