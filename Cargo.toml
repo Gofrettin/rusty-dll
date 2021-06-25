@@ -1,7 +1,9 @@
 [package]
+# Don't forget to rename `rusty-dll` to your project name!
 name = "rusty-dll"
 version = "0.1.0"
 edition = "2018"
+license-file = "LICENSE"
 
 [lib]
 crate-type = ["cdylib"]
