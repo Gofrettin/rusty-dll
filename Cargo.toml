@@ -1,0 +1,26 @@
+[package]
+name = "rusty-dll"
+version = "0.1.0"
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib"]
+
+[features]
+default = [
+    "winapi/consoleapi",
+    "winapi/memoryapi",
+    "winapi/winuser",
+    "winapi/minwinbase",
+    "winapi/minwindef",
+    "winapi/winnt",
+    "winapi/processthreadsapi",
+    "winapi/ntdef",
+    "winapi/tlhelp32",
+    "winapi/psapi",
+    "winapi/wincon",
+    "winapi/libloaderapi"
+]
+
+[dependencies]
+winapi = { version = "0.3.9" }
