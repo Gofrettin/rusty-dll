@@ -11,6 +11,8 @@ cargo generate https://github.com/sy1ntexx/rusty-dll
 git clone https://github.com/sy1ntexx/rusty-dll
 ```
 
+**First compile attempt can take significant amount of type due to compilation of `winapi` crate**
+
 ***Don't forget to rename package to your project name in*** `Cargo.toml`
 
 `build/` folder contains batch scripts to quickly build your packet for `x64` or `x86` architecture.

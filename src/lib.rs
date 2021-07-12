@@ -11,7 +11,7 @@ use std::ptr::null_mut;
 unsafe extern "C" fn DllMain(
     hinst_dll: HINSTANCE,
     fdw_reason: DWORD,
-    _lp_reserved: LPVOID) -> BOOL
+    _: LPVOID) -> BOOL
 {
     match fdw_reason {
         DLL_PROCESS_ATTACH => {
