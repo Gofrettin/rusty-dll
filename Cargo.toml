@@ -8,23 +8,25 @@ license-file = "LICENSE"
 [lib]
 crate-type = ["cdylib"]
 
-[features]
-default = [
-    "winapi/consoleapi",
-    "winapi/memoryapi",
-    "winapi/winuser",
-    "winapi/minwinbase",
-    "winapi/minwindef",
-    "winapi/winnt",
-    "winapi/processthreadsapi",
-    "winapi/ntdef",
-    "winapi/tlhelp32",
-    "winapi/psapi",
-    "winapi/wincon",
-    "winapi/libloaderapi",
-    "winapi/impl-debug",
-    "winapi/impl-default"
+[dependencies.winapi]
+version = "0.3.9"
+features = [
+    "everything",
+    "impl-default",
+    "impl-debug",
+    "memoryapi",
+    "psapi",
+    "minwindef",
+    "winnt",
+    "winbase",
+    "minwinbase",
+    "consoleapi",
+    "wincon",
+    "libloaderapi",
+    "tlhelp32",
+    "handleapi",
+    "errhandlingapi",
+    "processthreadsapi",
+    "synchapi",
+    "ntdef"
 ]
-
-[dependencies]
-winapi = { version = "0.3.9" }

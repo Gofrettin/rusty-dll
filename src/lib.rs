@@ -1,20 +1,28 @@
-use winapi::um::consoleapi::AllocConsole;
+use winapi::um::libloaderapi::FreeLibraryAndExitThread;
+use winapi::um::processthreadsapi::CreateThread;
 use winapi::um::winnt::DLL_PROCESS_ATTACH;
-use winapi::shared::minwindef::{BOOL, DWORD, FALSE, HINSTANCE, LPVOID, TRUE};
+use winapi::shared::minwindef::{
+    BOOL, DWORD, FALSE,
+    HINSTANCE, LPVOID, TRUE
+};
+use std::ptr::null_mut;
 
-#[allow(unused_variables)]
 #[no_mangle]
 unsafe extern "C" fn DllMain(
     hinst_dll: HINSTANCE,
     fdw_reason: DWORD,
-    lp_reserved: LPVOID) -> BOOL
+    _lp_reserved: LPVOID) -> BOOL
 {
     match fdw_reason {
-        // Spawns new thread when attaching to the process instead of blocking DllMain
         DLL_PROCESS_ATTACH => {
-            std::thread::spawn(|| unsafe {
-                main_thread();
-            });
+            CreateThread(
+                null_mut(),
+                0,
+                std::mem::transmute::<_, unsafe extern "system" fn(LPVOID) -> DWORD>(main_thread as usize).into(),
+                hinst_dll as _,
+                0,
+                null_mut()
+            );
         }
         // DLL_PROCESS_DETACH => {}
         // DLL_THREAD_ATTACH => {}
@@ -24,11 +32,14 @@ unsafe extern "C" fn DllMain(
     TRUE
 }
 
-unsafe fn main_thread() {
-    AllocConsole();
+unsafe extern "system" fn main_thread(lp_thread_parameter: LPVOID) -> u32 {
+    // AllocConsole();
     println!("Hello from #RustLang!");
 
     // Put your code here
 
-    loop { }
+
+    // FreeConsole();
+    FreeLibraryAndExitThread(lp_thread_parameter as _, 0);
+    return 0;
 }
