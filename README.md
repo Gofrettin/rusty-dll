@@ -15,6 +15,11 @@ git clone https://github.com/sy1ntexx/rusty-dll
 
 `build/` folder contains batch scripts to quickly build your packet for `x64` or `x86` architecture.
 
+# x64 or x86
+By default, `cargo` will compile for `x64` bit architecture because of `.cargo/config`.
+If you want to target `x86` you need to either change the target in configuration file,
+or take a use of handy scripts in the `build` folder.
+
 # Usage
 Write the code you want in `main_thread` function.
 ```rs
@@ -56,3 +61,6 @@ unsafe extern "system" fn main_thread(lp_thread_parameter: LPVOID) -> u32 {
 }
 
 ```
+
+# Output
+After successfull build, you can find your dll in `target/TARGET_NAME/[debug/release]/`
