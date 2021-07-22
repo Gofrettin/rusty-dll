@@ -8,7 +8,7 @@ use winapi::{
 };
 
 #[no_mangle]
-unsafe extern "C" fn DllMain(hinst_dll: HINSTANCE, fdw_reason: DWORD, _: LPVOID) -> BOOL {
+unsafe extern "system" fn DllMain(hinst_dll: HINSTANCE, fdw_reason: DWORD, _: LPVOID) -> BOOL {
     match fdw_reason {
         DLL_PROCESS_ATTACH => {
             CreateThread(
