@@ -33,6 +33,7 @@ unsafe extern "system" fn DllMain(hinst_dll: HINSTANCE, fdw_reason: DWORD, _: LP
     TRUE
 }
 
+#[no_mangle]
 unsafe extern "system" fn main_thread(lp_thread_parameter: LPVOID) -> u32 {
     // AllocConsole();
     println!("Hello from #RustLang!");
