@@ -1,45 +1,34 @@
-use std::ptr::null_mut;
-use winapi::{
-    shared::minwindef::{BOOL, DWORD, FALSE, HINSTANCE, LPVOID, TRUE},
-    um::{
-        libloaderapi::FreeLibraryAndExitThread, processthreadsapi::CreateThread,
-        winnt::DLL_PROCESS_ATTACH,
-    },
-};
+use std::time::Duration;
 
-#[no_mangle]
-unsafe extern "system" fn DllMain(hinst_dll: HINSTANCE, fdw_reason: DWORD, _: LPVOID) -> BOOL {
-    match fdw_reason {
-        DLL_PROCESS_ATTACH => {
-            CreateThread(
-                null_mut(),
-                0,
-                std::mem::transmute::<_, unsafe extern "system" fn(LPVOID) -> DWORD>(
-                    main_thread as usize,
-                )
-                .into(),
-                hinst_dll as _,
-                0,
-                null_mut(),
-            );
-        }
-        // DLL_PROCESS_DETACH => {}
-        // DLL_THREAD_ATTACH => {}
-        // DLL_THREAD_DETACH => {}
-        _ => {
-            return FALSE;
-        }
-    }
-    TRUE
+#[link(name = "kernel32")]
+extern "system" {
+    fn AllocConsole() -> i32;
+    fn FreeConsole() -> i32;
+    fn FreeLibraryAndExitThread(h_module: usize, exit_code: u32) -> !;
 }
 
-unsafe extern "system" fn main_thread(lp_thread_parameter: LPVOID) -> u32 {
-    // AllocConsole();
+#[no_mangle]
+unsafe extern "system" fn DllMain(hinst_dll: usize, fdw_reason: u32) -> i32 {
+    match fdw_reason {
+        1 => {
+            std::thread::spawn(move || {
+                unsafe { main_thread(hinst_dll); }
+            });
+            1
+        }
+        _ => 0
+    }
+}
+
+#[no_mangle]
+unsafe extern "system" fn main_thread(lp_thread_parameter: usize) {
+    AllocConsole();
+
     println!("Hello from #RustLang!");
 
     // Put your code here
+    std::thread::sleep(Duration::new(1, 0));
 
-    // FreeConsole();
+    FreeConsole();
     FreeLibraryAndExitThread(lp_thread_parameter as _, 0);
-    return 0;
 }

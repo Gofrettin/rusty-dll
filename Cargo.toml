@@ -1,32 +1,9 @@
 [package]
 # Don't forget to rename `rusty-dll` to your project name!
+# To build to x86 targets you can use `--target i686-pc-windows-msvc`
 name = "rusty-dll"
 version = "0.1.0"
-edition = "2018"
-license-file = "LICENSE"
+edition = "2021"
 
 [lib]
 crate-type = ["cdylib"]
-
-[dependencies.winapi]
-version = "0.3.9"
-features = [
-    "everything",
-    "impl-default",
-    "impl-debug",
-    "memoryapi",
-    "psapi",
-    "minwindef",
-    "winnt",
-    "winbase",
-    "minwinbase",
-    "consoleapi",
-    "wincon",
-    "libloaderapi",
-    "tlhelp32",
-    "handleapi",
-    "errhandlingapi",
-    "processthreadsapi",
-    "synchapi",
-    "ntdef"
-]

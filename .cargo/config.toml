@@ -1,3 +1,0 @@
-[build]
-# target = "i686-pc-windows-msvc" # Uncomment for x86 dlls
-target = "x86_64-pc-windows-msvc" # Default x64 dlls
