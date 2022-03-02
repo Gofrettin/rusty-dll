@@ -2,13 +2,13 @@ use std::time::Duration;
 
 #[link(name = "kernel32")]
 extern "system" {
-    fn AllocConsole() -> i32;
-    fn FreeConsole() -> i32;
+    fn AllocConsole() -> isize;
+    fn FreeConsole() -> isize;
     fn FreeLibraryAndExitThread(h_module: usize, exit_code: u32) -> !;
 }
 
 #[no_mangle]
-unsafe extern "system" fn DllMain(hinst_dll: usize, fdw_reason: u32) -> i32 {
+unsafe extern "system" fn DllMain(hinst_dll: usize, fdw_reason: u32) -> isize {
     match fdw_reason {
         1 => {
             std::thread::spawn(move || {
