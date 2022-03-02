@@ -8,7 +8,7 @@ extern "system" {
 }
 
 #[no_mangle]
-unsafe extern "system" fn DllMain(hinst_dll: usize, fdw_reason: u32) -> isize {
+unsafe extern "system" fn DllMain(hinst_dll: usize, fdw_reason: u32, _reserved: usize) -> isize {
     match fdw_reason {
         1 => {
             std::thread::spawn(move || {
